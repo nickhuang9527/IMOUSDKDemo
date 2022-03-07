@@ -6,13 +6,59 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/button_init_sdk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:text="Init lechange openSDK"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/button_connect_to_ap_of_cam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:text="Connect to Ap of IMOU Cam"
+        app:layout_constraintTop_toBottomOf="@id/button_init_sdk"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_search_device_init_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:text="Search deviceInitInfo"
+        app:layout_constraintTop_toBottomOf="@id/button_connect_to_ap_of_cam"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_init_device_by_ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:text="Init device by ip"
+        app:layout_constraintTop_toBottomOf="@id/button_search_device_init_info"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/button_get_softap_wifi_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:text="Get SoftAp Wifi list"
+        app:layout_constraintTop_toBottomOf="@id/button_init_device_by_ip"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
