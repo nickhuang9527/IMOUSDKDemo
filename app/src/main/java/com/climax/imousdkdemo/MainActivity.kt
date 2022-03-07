@@ -150,10 +150,24 @@ class MainActivity : AppCompatActivity() {
 
         mInitDeviceByIpButton.setOnClickListener {
             Log.d(TAG, "Init device by ip")
+            deviceInitInfo?.let {
+                when (it.mStatus) {
+                    0 -> Log.d(TAG, "Device doesn't support initialization")
+                    1 -> {
+                        Log.d(TAG, "Device hasn't been initialized")
+                        LCOpenSDK_DeviceInit.getInstance().initDeviceByIpEx(it, safetyCode) { isSuccess ->
+                            Log.d(TAG, "initDeviceByIpEx isSuccess : $isSuccess")
+                        }
+                    }
+                    2 -> Log.d(TAG, "device has been initialized")
+                }
+            }
+
         }
 
         mGetSoftApWifiListButton.setOnClickListener {
             Log.d(TAG, "Get SoftAp Wifi list")
+
         }
     }
 
