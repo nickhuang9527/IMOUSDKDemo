@@ -19,16 +19,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.climax.imousdkdemo.models.network.WirelessSecurityMode
-import com.climax.imousdkdemo.utils.network.WifiConnectivityManager
 import com.climax.imousdkdemo.utils.network.WifiUtil
 import com.lechange.opensdk.api.InitParams
 import com.lechange.opensdk.api.LCOpenSDK_Api
+import com.lechange.opensdk.device.LCOpenSDK_DeviceInit
+import com.lechange.opensdk.media.DeviceInitInfo
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mInitSDKButton: Button
     private lateinit var mConnectToApOfCamButton: Button
-    private lateinit var mSearchDeviceInitInfoButton: Button
+    private lateinit var mStartSearchDeviceInitInfoButton: Button
+    private lateinit var mStopSearchDeviceInitInfoButton: Button
     private lateinit var mInitDeviceByIpButton: Button
     private lateinit var mGetSoftApWifiListButton: Button
 
@@ -40,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     private val deviceId = "7J0A75CPAZD89A9"
     private val safetyCode = "L2746585"
 
+    private var deviceInitInfo: DeviceInitInfo? = null
     private var mWifiUtil: WifiUtil? = null
     private var mScanWifiCountDownTimer: CountDownTimer? = null
     private val mWifiScanResultsReceiver = object : BroadcastReceiver() {
@@ -111,7 +114,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupView() {
         mInitSDKButton = findViewById(R.id.button_init_sdk)
         mConnectToApOfCamButton = findViewById(R.id.button_connect_to_ap_of_cam)
-        mSearchDeviceInitInfoButton = findViewById(R.id.button_search_device_init_info)
+        mStartSearchDeviceInitInfoButton = findViewById(R.id.button_start_search_device_init_info)
+        mStopSearchDeviceInitInfoButton = findViewById(R.id.button_stop_search_device_init_info)
         mInitDeviceByIpButton = findViewById(R.id.button_init_device_by_ip)
         mGetSoftApWifiListButton = findViewById(R.id.button_get_softap_wifi_list)
 
@@ -129,8 +133,19 @@ class MainActivity : AppCompatActivity() {
             startScanWifiCountDownTimer()
         }
 
-        mSearchDeviceInitInfoButton.setOnClickListener {
-            Log.d(TAG, "Search deviceInitInfo")
+        mStartSearchDeviceInitInfoButton.setOnClickListener {
+            Log.d(TAG, "Start Search deviceInitInfo")
+            LCOpenSDK_DeviceInit.getInstance()
+                .searchDeviceInitInfoExs(deviceId, 30 * 1000) { sncode, searchedDeviceInitInfo ->
+                    Log.d(TAG, "sncode: $sncode")
+                    Log.d(TAG, "searchedDeviceInitInfo: $searchedDeviceInitInfo")
+                    deviceInitInfo = searchedDeviceInitInfo
+                }
+        }
+
+        mStopSearchDeviceInitInfoButton.setOnClickListener {
+            Log.d(TAG, "Stop Search deviceInitInfo")
+            LCOpenSDK_DeviceInit.getInstance().stopSearchDeviceExs()
         }
 
         mInitDeviceByIpButton.setOnClickListener {
@@ -155,7 +170,10 @@ class MainActivity : AppCompatActivity() {
 
     fun checkPermissions() {
 //        checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, PERMISSION_REQUEST_ACCESS_COARSE_LOCATION)
-        checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, PERMISSION_REQUEST_ACCESS_FIND_LOCATION)
+        checkPermission(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            PERMISSION_REQUEST_ACCESS_FIND_LOCATION
+        )
     }
 
     // Function to check and request permission

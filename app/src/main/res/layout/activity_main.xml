@@ -29,14 +29,25 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button_search_device_init_info"
+        android:id="@+id/button_start_search_device_init_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
-        android:text="Search deviceInitInfo"
+        android:text="Start Search deviceInitInfo"
         app:layout_constraintTop_toBottomOf="@id/button_connect_to_ap_of_cam"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_stop_search_device_init_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:text="Stop Search deviceInitInfo"
+        app:layout_constraintTop_toBottomOf="@id/button_start_search_device_init_info"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -47,7 +58,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:text="Init device by ip"
-        app:layout_constraintTop_toBottomOf="@id/button_search_device_init_info"
+        app:layout_constraintTop_toBottomOf="@id/button_stop_search_device_init_info"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
