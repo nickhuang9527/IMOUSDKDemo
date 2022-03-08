@@ -12,6 +12,8 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Message
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
@@ -24,6 +26,7 @@ import com.lechange.opensdk.api.InitParams
 import com.lechange.opensdk.api.LCOpenSDK_Api
 import com.lechange.opensdk.device.LCOpenSDK_DeviceInit
 import com.lechange.opensdk.media.DeviceInitInfo
+import com.lechange.opensdk.searchwifi.LCOpenSDK_SearchWiFi
 
 class MainActivity : AppCompatActivity() {
 
@@ -167,7 +170,22 @@ class MainActivity : AppCompatActivity() {
 
         mGetSoftApWifiListButton.setOnClickListener {
             Log.d(TAG, "Get SoftAp Wifi list")
+            val gatewayIp = mWifiUtil?.getGatewayIp() ?: return@setOnClickListener
+            /*
+            LCOpenSDK_SearchWiFi.getSoftApWifiList4Sc(gatewayIp, object : Handler() {
+                override fun handleMessage(msg: Message) {
+                    super.handleMessage(msg)
+                    Log.d(TAG, "msg: $msg")
+                }
+            })
 
+             */
+            LCOpenSDK_SearchWiFi.getSoftApWifiList(gatewayIp, safetyCode, object : Handler() {
+                override fun handleMessage(msg: Message) {
+                    super.handleMessage(msg)
+                    Log.d(TAG, "msg: $msg")
+                }
+            })
         }
     }
 
