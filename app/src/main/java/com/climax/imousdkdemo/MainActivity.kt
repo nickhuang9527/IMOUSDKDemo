@@ -28,6 +28,7 @@ import com.lechange.opensdk.device.LCOpenSDK_DeviceInit
 import com.lechange.opensdk.media.DeviceInitInfo
 import com.lechange.opensdk.searchwifi.LCOpenSDK_SearchWiFi
 import com.lechange.opensdk.softap.LCOpenSDK_SoftAPConfig
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -151,7 +152,9 @@ class MainActivity : AppCompatActivity() {
 
         mStopSearchDeviceInitInfoButton.setOnClickListener {
             Log.d(TAG, "Stop Search deviceInitInfo")
-            LCOpenSDK_DeviceInit.getInstance().stopSearchDeviceExs()
+            thread {
+                LCOpenSDK_DeviceInit.getInstance().stopSearchDeviceExs()
+            }
         }
 
         mInitDeviceByIpButton.setOnClickListener {
