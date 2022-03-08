@@ -27,6 +27,7 @@ import com.lechange.opensdk.api.LCOpenSDK_Api
 import com.lechange.opensdk.device.LCOpenSDK_DeviceInit
 import com.lechange.opensdk.media.DeviceInitInfo
 import com.lechange.opensdk.searchwifi.LCOpenSDK_SearchWiFi
+import com.lechange.opensdk.softap.LCOpenSDK_SoftAPConfig
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mStopSearchDeviceInitInfoButton: Button
     private lateinit var mInitDeviceByIpButton: Button
     private lateinit var mGetSoftApWifiListButton: Button
+    private lateinit var mStartSoftApConfigButton: Button
 
     private lateinit var mProgressDialog: ProgressDialog
 
@@ -121,6 +123,7 @@ class MainActivity : AppCompatActivity() {
         mStopSearchDeviceInitInfoButton = findViewById(R.id.button_stop_search_device_init_info)
         mInitDeviceByIpButton = findViewById(R.id.button_init_device_by_ip)
         mGetSoftApWifiListButton = findViewById(R.id.button_get_softap_wifi_list)
+        mStartSoftApConfigButton = findViewById(R.id.button_start_soft_ap_config)
 
         mProgressDialog = ProgressDialog(this)
         mProgressDialog.setTitle("Loading...")
@@ -186,6 +189,18 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "msg: $msg")
                 }
             })
+        }
+
+        mStartSoftApConfigButton.setOnClickListener {
+            val ssid = "ASUS_D8"
+            val password = "請填入password"
+            val isSc = true
+            LCOpenSDK_SoftAPConfig.startSoftAPConfig(ssid, password, deviceId, safetyCode, isSc, object : Handler() {
+                override fun handleMessage(msg: Message) {
+                    super.handleMessage(msg)
+                    Log.d(TAG, "msg: $msg")
+                }
+            }, 30 * 1000)
         }
     }
 
