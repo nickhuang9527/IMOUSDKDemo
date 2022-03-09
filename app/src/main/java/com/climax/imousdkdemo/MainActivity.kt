@@ -28,6 +28,7 @@ import com.lechange.opensdk.device.LCOpenSDK_DeviceInit
 import com.lechange.opensdk.media.DeviceInitInfo
 import com.lechange.opensdk.searchwifi.LCOpenSDK_SearchWiFi
 import com.lechange.opensdk.softap.LCOpenSDK_SoftAPConfig
+import com.lechange.opensdk.utils.LCOpenSDK_Utils
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
@@ -98,6 +99,7 @@ class MainActivity : AppCompatActivity() {
         checkPermissions()
 
         mWifiUtil = WifiUtil(this)
+        LCOpenSDK_Utils.enableLogPrint(true)
 
 //        WifiConnectivityManager.getInstance().bindToWifiNetwork()
     }
@@ -196,8 +198,8 @@ class MainActivity : AppCompatActivity() {
 
         mStartSoftApConfigButton.setOnClickListener {
             val ssid = "ASUS_D8"
-            val password = "請填入password"
-            val isSc = true
+            val password = "21245121"
+            val isSc = false
             LCOpenSDK_SoftAPConfig.startSoftAPConfig(ssid, password, deviceId, safetyCode, isSc, object : Handler() {
                 override fun handleMessage(msg: Message) {
                     super.handleMessage(msg)
