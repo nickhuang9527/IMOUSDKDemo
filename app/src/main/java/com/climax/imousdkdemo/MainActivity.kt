@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     //
     private var openapiUrl = "openapi-sg.easy4ip.com:443"
-    private val userToken = "Ut_0000236cc6c3fe8644ea953cf8d730c6"
+    private val userToken = "Ut_00004ece1788ea344788bd57faeab6aa"
     private val deviceId = "7J0A75CPAZD89A9"
     private val safetyCode = "L2746585"
 
@@ -132,20 +132,26 @@ class MainActivity : AppCompatActivity() {
         mProgressDialog.setTitle("Loading...")
 
         mInitSDKButton.setOnClickListener {
-            Log.d(TAG, "Init lechange openSDK")
+            Log.d(TAG, "------------------------------------------------------")
+            Log.d(TAG, "1. Init lechange openSDK")
+            Log.d(TAG, "[initOpenApi] url: $openapiUrl, userToken: $userToken")
             val initParams = InitParams(this.applicationContext, openapiUrl, userToken)
             LCOpenSDK_Api.initOpenApi(initParams)
         }
 
         mConnectToApOfCamButton.setOnClickListener {
-            Log.d(TAG, "Connect to Ap of IMOU Cam")
+            Log.d(TAG, "------------------------------------------------------")
+            Log.d(TAG, "2. Connect to Ap of IMOU Cam")
             startScanWifiCountDownTimer()
         }
 
         mStartSearchDeviceInitInfoButton.setOnClickListener {
-            Log.d(TAG, "Start Search deviceInitInfo")
+            Log.d(TAG, "------------------------------------------------------")
+            Log.d(TAG, "3. Start Search deviceInitInfo")
+            Log.d(TAG, "[searchDeviceInitInfoExs] deviceId: $deviceId")
             LCOpenSDK_DeviceInit.getInstance()
                 .searchDeviceInitInfoExs(deviceId, 30 * 1000) { sncode, searchedDeviceInitInfo ->
+                    Log.d(TAG, "[searchDeviceInitInfoExs callback]")
                     Log.d(TAG, "sncode: $sncode")
                     Log.d(TAG, "searchedDeviceInitInfo: $searchedDeviceInitInfo")
                     deviceInitInfo = searchedDeviceInitInfo
@@ -153,21 +159,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         mStopSearchDeviceInitInfoButton.setOnClickListener {
-            Log.d(TAG, "Stop Search deviceInitInfo")
+            Log.d(TAG, "------------------------------------------------------")
+            Log.d(TAG, "4. Stop Search deviceInitInfo")
+            Log.d(TAG, "[stopSearchDeviceExs]")
             thread {
                 LCOpenSDK_DeviceInit.getInstance().stopSearchDeviceExs()
             }
         }
 
         mInitDeviceByIpButton.setOnClickListener {
-            Log.d(TAG, "Init device by ip")
+            Log.d(TAG, "------------------------------------------------------")
+            Log.d(TAG, "5. Init device by ip")
+            Log.d(TAG, "[initDeviceByIpEx] deviceInitInfo: $deviceInitInfo, password: $safetyCode")
             deviceInitInfo?.let {
                 when (it.mStatus) {
                     0 -> Log.d(TAG, "Device doesn't support initialization")
                     1 -> {
                         Log.d(TAG, "Device hasn't been initialized")
                         LCOpenSDK_DeviceInit.getInstance().initDeviceByIpEx(it, safetyCode) { isSuccess ->
-                            Log.d(TAG, "initDeviceByIpEx isSuccess : $isSuccess")
+                            Log.d(TAG, "[initDeviceByIpEx callback]")
+                            Log.d(TAG, "isSuccess : $isSuccess")
                         }
                     }
                     2 -> Log.d(TAG, "device has been initialized")
@@ -177,8 +188,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         mGetSoftApWifiListButton.setOnClickListener {
-            Log.d(TAG, "Get SoftAp Wifi list")
+            Log.d(TAG, "------------------------------------------------------")
+            Log.d(TAG, "6. Get SoftAp Wifi list")
             val gatewayIp = mWifiUtil?.getGatewayIp() ?: return@setOnClickListener
+            Log.d(TAG, "[getSoftApWifiList] gatewayIp: $gatewayIp, password: $safetyCode")
+
             /*
             LCOpenSDK_SearchWiFi.getSoftApWifiList4Sc(gatewayIp, object : Handler() {
                 override fun handleMessage(msg: Message) {
@@ -191,19 +205,27 @@ class MainActivity : AppCompatActivity() {
             LCOpenSDK_SearchWiFi.getSoftApWifiList(gatewayIp, safetyCode, object : Handler() {
                 override fun handleMessage(msg: Message) {
                     super.handleMessage(msg)
+                    Log.d(TAG, "[getSoftApWifiList callback]")
                     Log.d(TAG, "msg: $msg")
+                    Log.d(TAG, "msg.what: ${msg.what}")
                 }
             })
         }
 
         mStartSoftApConfigButton.setOnClickListener {
+            Log.d(TAG, "------------------------------------------------------")
+            Log.d(TAG, "7. Start Soft Ap Config")
             val ssid = "ASUS_D8"
             val password = "21245121"
-            val isSc = false
+            val isSc = true
+            Log.d(TAG, "[startSoftAPConfig] ssid: $ssid, password: $password, deviceId: $deviceId, devPassword: $safetyCode, isSc: $isSc")
+
             LCOpenSDK_SoftAPConfig.startSoftAPConfig(ssid, password, deviceId, safetyCode, isSc, object : Handler() {
                 override fun handleMessage(msg: Message) {
                     super.handleMessage(msg)
+                    Log.d(TAG, "[startSoftAPConfig callback]")
                     Log.d(TAG, "msg: $msg")
+                    Log.d(TAG, "msg.arg1.: ${msg.arg1}")
                 }
             }, 30 * 1000)
         }
