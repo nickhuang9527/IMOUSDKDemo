@@ -2,18 +2,12 @@ package com.climax.imousdkdemo
 
 import android.Manifest
 import android.app.ProgressDialog
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.NetworkInfo
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiManager
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Message
+import android.os.*
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
@@ -41,6 +35,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mInitDeviceByIpButton: Button
     private lateinit var mGetSoftApWifiListButton: Button
     private lateinit var mStartSoftApConfigButton: Button
+
+    private lateinit var mStartServiceButton: Button
+    private lateinit var mStopServiceButton: Button
+    private lateinit var mBindServiceButton: Button
+    private lateinit var mUnbindServiceButton: Button
 
     private lateinit var mProgressDialog: ProgressDialog
 
@@ -92,6 +91,26 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    val serviceConnection: ServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName, iBinder: IBinder) {
+            val myBinder: SearchDeviceInitInfoService.MyBinder =
+                iBinder as SearchDeviceInitInfoService.MyBinder
+            val result: String = myBinder.startDownload()
+            Log.e("＊＊＊", result)
+
+            myBinder.startSearchDeviceInitInfoExs(deviceId, 1000 * 30)  { sncode, searchedDeviceInitInfo ->
+                Log.d(TAG, "[searchDeviceInitInfoExs callback]")
+                Log.d(TAG, "sncode: $sncode")
+                Log.d(TAG, "searchedDeviceInitInfo: $searchedDeviceInitInfo")
+            }
+            //透過service做一些畫面的操作
+        }
+
+        override fun onServiceDisconnected(name: ComponentName) {
+            Log.e("＊＊＊", "onServiceDisconnected")
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -129,6 +148,11 @@ class MainActivity : AppCompatActivity() {
         mInitDeviceByIpButton = findViewById(R.id.button_init_device_by_ip)
         mGetSoftApWifiListButton = findViewById(R.id.button_get_softap_wifi_list)
         mStartSoftApConfigButton = findViewById(R.id.button_start_soft_ap_config)
+
+        mStartServiceButton = findViewById(R.id.button_start_service)
+        mStopServiceButton = findViewById(R.id.button_stop_service)
+        mBindServiceButton = findViewById(R.id.button_bind_service)
+        mUnbindServiceButton = findViewById(R.id.button_unbind_service)
 
         mProgressDialog = ProgressDialog(this)
         mProgressDialog.setTitle("Loading...")
@@ -240,6 +264,38 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "msg.arg1.: ${msg.arg1}")
                 }
             }, 30 * 1000)
+        }
+
+        mStartServiceButton.setOnClickListener {
+            Log.d(TAG, "------------------------------------------------------")
+            Log.d(TAG, "Start service")
+            val intent = Intent(this@MainActivity, SearchDeviceInitInfoService::class.java)
+            intent.putExtra("test", "test service")
+            startService(intent)
+        }
+
+        mStopServiceButton.setOnClickListener {
+            Log.d(TAG, "------------------------------------------------------")
+            Log.d(TAG, "Stop service")
+            val intent = Intent(this@MainActivity, SearchDeviceInitInfoService::class.java)
+            stopService(intent)
+        }
+
+        mBindServiceButton.setOnClickListener {
+            Log.d(TAG, "------------------------------------------------------")
+            Log.d(TAG, "Bind service")
+            val intent1 = Intent(
+                applicationContext,
+                SearchDeviceInitInfoService::class.java
+            )
+            bindService(intent1, serviceConnection, Context.BIND_AUTO_CREATE)
+        }
+
+        mUnbindServiceButton.setOnClickListener {
+            Log.d(TAG, "------------------------------------------------------")
+            Log.d(TAG, "UnBind service")
+            unbindService(serviceConnection)
+
         }
     }
 

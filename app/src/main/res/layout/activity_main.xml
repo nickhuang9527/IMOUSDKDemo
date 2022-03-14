@@ -10,89 +10,133 @@
         android:id="@+id/button_init_sdk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="Init lechange openSDK"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_init_device_init_sdk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="Init device init sdk"
-        app:layout_constraintTop_toBottomOf="@id/button_init_sdk"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_init_sdk" />
 
     <Button
         android:id="@+id/button_connect_to_ap_of_cam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="Connect to Ap of IMOU Cam"
-        app:layout_constraintTop_toBottomOf="@id/button_init_device_init_sdk"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_init_device_init_sdk" />
 
     <Button
         android:id="@+id/button_start_search_device_init_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="Start Search deviceInitInfo"
-        app:layout_constraintTop_toBottomOf="@id/button_connect_to_ap_of_cam"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_connect_to_ap_of_cam" />
 
     <Button
         android:id="@+id/button_stop_search_device_init_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="Stop Search deviceInitInfo"
-        app:layout_constraintTop_toBottomOf="@id/button_start_search_device_init_info"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_start_search_device_init_info" />
 
     <Button
         android:id="@+id/button_init_device_by_ip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="Init device by ip"
+        android:textAllCaps="false"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/button_stop_search_device_init_info"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_stop_search_device_init_info" />
 
     <Button
         android:id="@+id/button_get_softap_wifi_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="Get SoftAp Wifi list"
-        app:layout_constraintTop_toBottomOf="@id/button_init_device_by_ip"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_init_device_by_ip" />
 
     <Button
         android:id="@+id/button_start_soft_ap_config"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="Start Soft Ap Config"
-        app:layout_constraintTop_toBottomOf="@id/button_get_softap_wifi_list"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_get_softap_wifi_list" />
+
+    <Button
+        android:id="@+id/button_start_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Start service"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/button_init_sdk" />
+
+    <Button
+        android:id="@+id/button_stop_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Stop service"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/button_init_device_init_sdk" />
+
+    <Button
+        android:id="@+id/button_bind_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Bind service"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/button_connect_to_ap_of_cam" />
+
+    <Button
+        android:id="@+id/button_unbind_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Unbind service"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/button_start_search_device_init_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
