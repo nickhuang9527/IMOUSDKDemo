@@ -28,7 +28,7 @@ import kotlin.concurrent.thread
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mInitSDKButton: Button
-    private lateinit var mConnectToApOfCamButton: Button
+    private lateinit var mStartSearchDeviceInitInfoWithEmptyDeviceSnButton: Button
     private lateinit var mInitDeviceInitSDKButton: Button
     private lateinit var mStartSearchDeviceInitInfoButton: Button
     private lateinit var mStopSearchDeviceInitInfoButton: Button
@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity() {
     //
     private var openapiUrl = "openapi-sg.easy4ip.com:443"
     private val userToken = "Ut_00004ece1788ea344788bd57faeab6aa"
-    private val deviceId = "7J0A75CPAZD23DD"
-    private val safetyCode = "L2FA63C4"
+    private val deviceId = "7J0A75CPAZD89A9"
+    private val safetyCode = "L2746585"
 
     private var deviceInitInfo: DeviceInitInfo? = null
     private var mWifiUtil: WifiUtil? = null
@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupView() {
         mInitSDKButton = findViewById(R.id.button_init_sdk)
         mInitDeviceInitSDKButton = findViewById(R.id.button_init_device_init_sdk)
-        mConnectToApOfCamButton = findViewById(R.id.button_connect_to_ap_of_cam)
+        mStartSearchDeviceInitInfoWithEmptyDeviceSnButton = findViewById(R.id.button_start_search_device_init_info_with_empty_device_sn)
         mStartSearchDeviceInitInfoButton = findViewById(R.id.button_start_search_device_init_info)
         mStopSearchDeviceInitInfoButton = findViewById(R.id.button_stop_search_device_init_info)
         mInitDeviceByIpButton = findViewById(R.id.button_init_device_by_ip)
@@ -172,12 +172,13 @@ class MainActivity : AppCompatActivity() {
             LCOpenSDK_DeviceInit.getInstance()
         }
 
-        mConnectToApOfCamButton.setOnClickListener {
+        mStartSearchDeviceInitInfoWithEmptyDeviceSnButton.setOnClickListener {
             Log.d(TAG, "------------------------------------------------------")
-            Log.d(TAG, "3. Connect to Ap of IMOU Cam")
+            Log.d(TAG, "3. Start Search deviceInitInfo with empty deviceSN")
+            Log.d(TAG, "[searchDeviceInitInfoExs] deviceId: ")
 //            startScanWifiCountDownTimer()
             LCOpenSDK_DeviceInit.getInstance()
-                .searchDeviceInitInfoExs(deviceId, 30 * 1000) { sncode, searchedDeviceInitInfo ->
+                .searchDeviceInitInfoExs("", 30 * 1000) { sncode, searchedDeviceInitInfo ->
                     Log.d(TAG, "[searchDeviceInitInfoExs callback]")
                     Log.d(TAG, "sncode: $sncode")
                     Log.d(TAG, "searchedDeviceInitInfo: $searchedDeviceInitInfo")
@@ -190,7 +191,7 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "4. Start Search deviceInitInfo")
             Log.d(TAG, "[searchDeviceInitInfoExs] deviceId: $deviceId")
             LCOpenSDK_DeviceInit.getInstance()
-                .searchDeviceInitInfoExs("", 30 * 1000) { sncode, searchedDeviceInitInfo ->
+                .searchDeviceInitInfoExs(deviceId, 30 * 1000) { sncode, searchedDeviceInitInfo ->
                     Log.d(TAG, "[searchDeviceInitInfoExs callback]")
                     Log.d(TAG, "sncode: $sncode")
                     Log.d(TAG, "searchedDeviceInitInfo: $searchedDeviceInitInfo")

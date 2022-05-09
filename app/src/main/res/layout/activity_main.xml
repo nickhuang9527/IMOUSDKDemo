@@ -29,12 +29,12 @@
         app:layout_constraintTop_toBottomOf="@id/button_init_sdk" />
 
     <Button
-        android:id="@+id/button_connect_to_ap_of_cam"
+        android:id="@+id/button_start_search_device_init_info_with_empty_device_sn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="Connect to Ap of IMOU Cam"
+        android:text="Start Search deviceInitInfo with empty deviceSN"
         android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_init_device_init_sdk" />
@@ -48,7 +48,7 @@
         android:text="Start Search deviceInitInfo"
         android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_connect_to_ap_of_cam" />
+        app:layout_constraintTop_toBottomOf="@id/button_start_search_device_init_info_with_empty_device_sn" />
 
     <Button
         android:id="@+id/button_stop_search_device_init_info"
@@ -102,6 +102,7 @@
         android:layout_marginEnd="20dp"
         android:text="Start service"
         android:textAllCaps="false"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/button_init_sdk" />
 
@@ -113,6 +114,7 @@
         android:layout_marginEnd="20dp"
         android:text="Stop service"
         android:textAllCaps="false"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/button_init_device_init_sdk" />
 
@@ -124,8 +126,9 @@
         android:layout_marginEnd="20dp"
         android:text="Bind service"
         android:textAllCaps="false"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/button_connect_to_ap_of_cam" />
+        app:layout_constraintTop_toTopOf="@id/button_start_search_device_init_info_with_empty_device_sn" />
 
     <Button
         android:id="@+id/button_unbind_service"
@@ -135,6 +138,7 @@
         android:layout_marginEnd="20dp"
         android:text="Unbind service"
         android:textAllCaps="false"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/button_start_search_device_init_info" />
 
