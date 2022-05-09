@@ -175,7 +175,14 @@ class MainActivity : AppCompatActivity() {
         mConnectToApOfCamButton.setOnClickListener {
             Log.d(TAG, "------------------------------------------------------")
             Log.d(TAG, "3. Connect to Ap of IMOU Cam")
-            startScanWifiCountDownTimer()
+//            startScanWifiCountDownTimer()
+            LCOpenSDK_DeviceInit.getInstance()
+                .searchDeviceInitInfoExs(deviceId, 30 * 1000) { sncode, searchedDeviceInitInfo ->
+                    Log.d(TAG, "[searchDeviceInitInfoExs callback]")
+                    Log.d(TAG, "sncode: $sncode")
+                    Log.d(TAG, "searchedDeviceInitInfo: $searchedDeviceInitInfo")
+                    deviceInitInfo = searchedDeviceInitInfo
+                }
         }
 
         mStartSearchDeviceInitInfoButton.setOnClickListener {
@@ -183,7 +190,7 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "4. Start Search deviceInitInfo")
             Log.d(TAG, "[searchDeviceInitInfoExs] deviceId: $deviceId")
             LCOpenSDK_DeviceInit.getInstance()
-                .searchDeviceInitInfoExs(deviceId, 30 * 1000) { sncode, searchedDeviceInitInfo ->
+                .searchDeviceInitInfoExs("", 30 * 1000) { sncode, searchedDeviceInitInfo ->
                     Log.d(TAG, "[searchDeviceInitInfoExs callback]")
                     Log.d(TAG, "sncode: $sncode")
                     Log.d(TAG, "searchedDeviceInitInfo: $searchedDeviceInitInfo")
@@ -227,6 +234,7 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "[getSoftApWifiList] gatewayIp: $gatewayIp, password: $safetyCode")
 
 
+            /*
             LCOpenSDK_SearchWiFi.getSoftApWifiList4Sc(gatewayIp, object : Handler() {
                 override fun handleMessage(msg: Message) {
                     super.handleMessage(msg)
@@ -235,8 +243,8 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "msg.what: ${msg.what}")
                 }
             })
+             */
 
-            /*
             LCOpenSDK_SearchWiFi.getSoftApWifiList(gatewayIp, safetyCode, object : Handler() {
                 override fun handleMessage(msg: Message) {
                     super.handleMessage(msg)
@@ -245,7 +253,6 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "msg.what: ${msg.what}")
                 }
             })
-             */
         }
 
         mStartSoftApConfigButton.setOnClickListener {
